@@ -4,6 +4,10 @@ import com.example.demo.Car.Model.Car;
 import com.example.demo.Car.Repository.CarRepo;
 import com.example.demo.Member.Model.Member;
 import com.example.demo.Member.Repository.MemberRepo;
+import com.example.demo.Product.Model.Product;
+import com.example.demo.Product.Repository.ProductRepo;
+import com.example.demo.ProductOrder.Model.ProductOrder;
+import com.example.demo.ProductOrder.Repository.ProductOrderRepo;
 import com.example.demo.Reservation.Model.Reservation;
 import com.example.demo.Reservation.Repository.ReservationRepo;
 import org.slf4j.Logger;
@@ -28,7 +32,9 @@ public class ExamprojectbackendApplication {
 	@Bean
 	public CommandLineRunner importData(MemberRepo memberRepo,
 										CarRepo carRepo,
-										ReservationRepo reservationRepo
+										ReservationRepo reservationRepo,
+										ProductRepo productRepo,
+										ProductOrderRepo productOrderRepo
 										){
 
 		return (args) -> {
@@ -49,6 +55,15 @@ public class ExamprojectbackendApplication {
 			Reservation reservation = new Reservation(date,date,cars.get(0),members.get(0));
 			reservationRepo.save(reservation);
 
+			final List<Product> products = new ArrayList<>();
+			products.add(new Product("Coca Cola Original",24.99,2));
+			products.add(new Product("Faxe Kondi",24.99,2));
+			productRepo.saveAll(products);
+
+//			final List<ProductOrder> productOrders = new ArrayList<>();
+//			productOrders.add(new ProductOrder(23,products.get(0)));
+//			productOrders.add(new ProductOrder(6,products.get(1)));
+//			productOrderRepo.saveAll(productOrders);
 
 		};
 	}
