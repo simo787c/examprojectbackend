@@ -1,6 +1,5 @@
 package com.example.demo.Product.Model;
 
-import com.example.demo.Reservation.Model.Reservation;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,8 +21,6 @@ public class Product {
 
     @Column(name = "price")
     private Double price;
-
-    //Weight is in Kg
     @Column(name = "weight")
     private Double weight;
 

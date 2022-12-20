@@ -29,7 +29,7 @@ public class Delivery {
     @Column(name = "destination")
     private String destination;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     private Set<ProductOrder> productOrders;
 
     public Delivery(Date deliveryDate, String fromWarehouse, String destination) {
@@ -45,10 +45,6 @@ public class Delivery {
         this.productOrders = productOrders;
     }
 
-//    private ProductOrder getProductOrder(Long id){
-//        productOrders.ge
-//
-//    }
 
     public Delivery updateFrom(Delivery delivery) {
         if(delivery.deliveryDate!=null) {this.deliveryDate = delivery.deliveryDate;}

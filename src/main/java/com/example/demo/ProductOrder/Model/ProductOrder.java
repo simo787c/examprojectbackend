@@ -37,7 +37,6 @@ public class ProductOrder {
         this.product = product;
     }
 
-    //remember to add constructor to include delivery
 
     public ProductOrder updateFrom(ProductOrder productOrder) {
         if(productOrder.quantity!=null) {this.quantity = productOrder.quantity;}

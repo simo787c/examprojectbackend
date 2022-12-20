@@ -2,12 +2,11 @@ package com.example.demo.Delivery.Controller;
 
 import com.example.demo.Delivery.Model.Delivery;
 import com.example.demo.Delivery.Service.DeliveryService;
-import com.example.demo.Product.Model.Product;
-import com.example.demo.Product.Service.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @CrossOrigin
@@ -31,6 +30,11 @@ public class DeliveryController {
         Optional<Delivery> item = Optional.of(service.find(id)
                 .orElseThrow(() -> new RuntimeException("Delivery %d not found.".formatted(id))));
         return ResponseEntity.ok().body(item.get());
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Delivery>> search(@RequestParam("query") String query) {
+        return ResponseEntity.ok(service.search(query));
     }
 
     @PostMapping

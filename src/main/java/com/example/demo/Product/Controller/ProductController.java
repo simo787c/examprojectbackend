@@ -2,8 +2,6 @@ package com.example.demo.Product.Controller;
 
 import com.example.demo.Product.Model.Product;
 import com.example.demo.Product.Service.ProductService;
-import com.example.demo.Reservation.Model.Reservation;
-import com.example.demo.Reservation.Service.ReservationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

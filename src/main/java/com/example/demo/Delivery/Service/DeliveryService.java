@@ -2,14 +2,11 @@ package com.example.demo.Delivery.Service;
 
 import com.example.demo.Delivery.Model.Delivery;
 import com.example.demo.Delivery.Repository.DeliveryRepo;
-import com.example.demo.Product.Model.Product;
-import com.example.demo.Product.Repository.ProductRepo;
 import com.example.demo.ProductOrder.Model.ProductOrder;
-import com.example.demo.ProductOrder.Repository.ProductOrderRepo;
 import com.example.demo.ProductOrder.Service.ProductOrderService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -28,11 +25,10 @@ public class DeliveryService {
         //save the new delivery
         delivery = repository.save(delivery);
 
-        //for every productOrder in delivery, set new delivery as delivery
-        //then save updated via POService
+        //creates ProductOrders
         for(ProductOrder productOrder : delivery.getProductOrders()){
             productOrder.setDelivery(delivery);
-            POService.update(productOrder.getId(), productOrder);
+            POService.create(productOrder);
         }
 
         return delivery;
@@ -44,6 +40,10 @@ public class DeliveryService {
 
     public Optional<Delivery> find(Long id) {
         return repository.findById(id);
+    }
+
+    public List<Delivery> search(String query){
+        return repository.findByDestinationContainsIgnoreCase(query);
     }
 
     public Optional<Delivery> update(Long id, Delivery delivery) {

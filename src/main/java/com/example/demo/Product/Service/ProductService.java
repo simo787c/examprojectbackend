@@ -1,11 +1,12 @@
 package com.example.demo.Product.Service;
 
+import com.example.demo.Delivery.Model.Delivery;
+import com.example.demo.Delivery.Service.DeliveryService;
 import com.example.demo.Product.Model.Product;
 import com.example.demo.Product.Repository.ProductRepo;
 import com.example.demo.ProductOrder.Model.ProductOrder;
 import com.example.demo.ProductOrder.Repository.ProductOrderRepo;
-import com.example.demo.Reservation.Model.Reservation;
-import com.example.demo.Reservation.Repository.ReservationRepo;
+import com.example.demo.ProductOrder.Service.ProductOrderService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,11 +15,13 @@ import java.util.Optional;
 @Service
 public class ProductService {
     private final ProductRepo repository;
-    private final ProductOrderRepo PORepo;
+    private final ProductOrderService POService;
+    private final DeliveryService deliveryService;
 
-    public ProductService(ProductRepo repository, ProductOrderRepo PORepo) {
+    public ProductService(ProductRepo repository, ProductOrderService POService, DeliveryService deliveryService) {
         this.repository = repository;
-        this.PORepo = PORepo;
+        this.POService = POService;
+        this.deliveryService = deliveryService;
     }
 
     public Product create(Product product) {
@@ -47,11 +50,12 @@ public class ProductService {
 
     public Product delete(Long id) {
 
-        List<ProductOrder> productOrders = (List<ProductOrder>) PORepo.findAll();
+        List<ProductOrder> productOrders = (List<ProductOrder>) POService.findAll();
+
 
         for (int i = 0; i < productOrders.size(); i++){
             if(productOrders.get(i).getProduct().getId() == id){
-                PORepo.deleteById(productOrders.get(i).getId());
+                deliveryService.delete(productOrders.get(i).getDelivery().getId());
             }
         }
 
